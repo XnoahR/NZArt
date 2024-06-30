@@ -1,18 +1,32 @@
 @extends('Components.main')
 @section('content')
-<section class="bg-white dark:bg-gray-900 h-screen flex flex-col items-center justify-center space-y-5">
-    <h1 class="mb-4 text-4xl text-center font-bold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Butuh Bantuan? Kontak kami!</h1>
+    <section class="container mt-24 mx-auto h-screen">
+        <div class="grid ">
+            <div class="bg-blue-500 py-2 text-3xl font-thin ps-3 rounded-t-md">Print A3+</div>
+            @include('Components.breadcrumb')
+            <div class="bg-white space-y-3 p-3 dark:bg-gray-900 dark:text-white text-black">
+                <p> berbagai kebutuhan cetakmu. Hadir dengan teknologi digital print sehingga Anda dapat mencetak dalam
+                    jumlah sedikit dalam waktu singkat.</p>
 
-        <a href=""> <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
-            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-            Klik Disini untuk masuk ke Whatsapp
-            </span>
-            </button></a>
-        <a href="https://www.instagram.com"><button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
-            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                Klik Disini untuk masuk ke Instagram
-            </span>
-            </button></a>
-        
-</section>
+                <p>Teknologi Digital Printing saat ini semakin populer karena proses cetaknya lebih ringkas dari Offset
+                    Printing.</p>
+
+                <p> Pesan sekarang juga di NZArt.co.id !</p>
+
+            </div>
+
+            <div class="bg-white grid grid-cols-1 md:grid-cols-4 gap-6 py-3 px-3 dark:bg-gray-900">
+                @include('Components.catalog_card')
+                @include('Components.catalog_card')
+                @include('Components.catalog_card')
+                @include('Components.catalog_card')
+                @include('Components.catalog_card')
+                @include('Components.catalog_card')
+                @include('Components.catalog_card')
+                @include('Components.catalog_card')
+                @include('Components.catalog_card')
+                @include('Components.catalog_card')
+            </div>
+        </div>
+    </section>
 @endsection
