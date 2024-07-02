@@ -1,4 +1,8 @@
 @extends('Components.admin')
 @section('content')
-x    
+    
+
+    <div class="p-4 sm:ml-64">
+       
+    </div>
 @endsection
