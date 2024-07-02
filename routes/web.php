@@ -101,3 +101,32 @@ Route::get('/profile', function () {
         ]
     );
 });
+
+Route::group(['prefix' => 'catalog'], function () {
+    Route::get('/detail', function () {
+        $title = 'Detail Produk';
+        $navTitle = 'Catalog';
+        return view(
+            'Catalog.detail',
+            [
+                'title' => $title,
+                'navTitle' => $navTitle,
+                // 'slug' => $slug
+            ]
+        );
+    })->name('catalog.detail');
+});
+
+Route::group(['prefix' => 'admin'], function () {
+   Route::get('/', function () {
+       $title = 'Admin';
+       $navTitle = 'Dashboard';
+       return view(
+           'Admin.index',
+           [
+               'title' => $title,
+               'navTitle' => $navTitle
+           ]
+       );
+   });
+});

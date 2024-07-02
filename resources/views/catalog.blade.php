@@ -2,9 +2,9 @@
 @section('content')
     <section class="container mt-24 mx-auto h-screen">
         <div class="grid ">
-            <div class="bg-blue-500 py-2 text-3xl font-thin ps-3 rounded-t-md">Print A3+</div>
+            <div class="bg-blue-500 py-2 text-3xl text-white font-thin ps-3 rounded-t-md">Katalog</div>
             @include('Components.breadcrumb')
-            <div class="bg-white space-y-3 p-3 dark:bg-gray-900 dark:text-white text-black">
+            <div class="bg-white space-y-3 p-3 dark:bg-slate-900 dark:text-white text-black">
                 <p> berbagai kebutuhan cetakmu. Hadir dengan teknologi digital print sehingga Anda dapat mencetak dalam
                     jumlah sedikit dalam waktu singkat.</p>
 
@@ -15,7 +15,7 @@
 
             </div>
 
-            <div class="bg-white grid grid-cols-1 md:grid-cols-4 gap-6 py-3 px-3 dark:bg-gray-900">
+            <div class="bg-white grid grid-cols-1 md:grid-cols-4 gap-6 py-3 px-3 dark:bg-slate-900">
                 @include('Components.catalog_card')
                 @include('Components.catalog_card')
                 @include('Components.catalog_card')
