@@ -1,7 +1,15 @@
 @extends('Components.admin')
 @section('content')
     <div class="p-4 sm:ml-64">
-
+        @if ($errors->any())
+            @include('Components.warning_toaster')
+        @endif
+        @if (session('success'))
+            @include('Components.success_toaster')
+        @endif
+        @if (session('danger'))
+            @include('Components.danger_toaster')
+        @endif
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

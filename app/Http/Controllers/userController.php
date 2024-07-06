@@ -12,7 +12,7 @@ class userController extends Controller
     {
         $users = User::where('role', 'user')->paginate(10);
 
-        $title = 'Admin';
+        $title = 'User Management';
         $navTitle = 'User';
         return view('Admin.user', [
             'users' => $users,
@@ -25,7 +25,7 @@ class userController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $title = 'Admin';
+        $title = 'Edit ' . $user->name . ' Data';
         $navTitle = 'User';
         return view(
             'Admin.edit',
@@ -76,6 +76,6 @@ class userController extends Controller
         // Delete the user
         $user->delete();
 
-        return redirect()->route('admin.user')->with('success', 'Data successfully deleted');
+        return redirect()->route('admin.user')->with('danger', 'Data successfully deleted');
     }
 }
