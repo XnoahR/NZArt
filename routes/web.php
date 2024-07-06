@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\productController;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
 
@@ -119,8 +120,19 @@ Route::group(['prefix' => 'catalog'], function () {
 });
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/user', [userController::class, 'user'])->name('admin.user');
-    Route::get('/user/edit/{id}', [userController::class, 'edit'])->name('admin.edit');
-    Route::post('/user/store', [userController::class, 'store'])->name('admin.store');
-    Route::delete('/user/delete/{id}', [userController::class, 'delete'])->name('admin.delete');
+    Route::group(['prefix'=>'user'], function(){
+        Route::get('/', [userController::class, 'user'])->name('admin.user');
+        Route::get('/edit/{id}', [userController::class, 'edit'])->name('admin.edit');
+        Route::patch('/store', [userController::class, 'store'])->name('admin.store');
+        Route::delete('/delete/{id}', [userController::class, 'delete'])->name('admin.delete');
+    });
+    Route::group(['prefix'=>'product'], function(){
+        Route::get('/',[productController::class, 'index'])->name('admin.product');
+        Route::get('/edit/{id}',[productController::class, 'edit'])->name('admin.editProduct');
+        Route::put('/update',[productController::class, 'update'])->name('admin.updateProduct');
+        // Route::get('/', [userController::class, 'product'])->name('admin.product');
+        // Route::get('/edit/{id}', [userController::class, 'editProduct'])->name('admin.editProduct');
+        // Route::post('/store', [userController::class, 'storeProduct'])->name('admin.storeProduct');
+        // Route::delete('/delete/{id}', [userController::class, 'deleteProduct'])->name('admin.deleteProduct');
+    });
 });

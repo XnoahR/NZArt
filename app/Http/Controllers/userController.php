@@ -14,7 +14,7 @@ class userController extends Controller
 
         $title = 'User Management';
         $navTitle = 'User';
-        return view('Admin.user', [
+        return view('Admin.user.index', [
             'users' => $users,
             'title' => $title,
             'navTitle' => $navTitle
@@ -28,7 +28,7 @@ class userController extends Controller
         $title = 'Edit ' . $user->name . ' Data';
         $navTitle = 'User';
         return view(
-            'Admin.edit',
+            'Admin.user.edit',
             [
                 'user' => $user,
                 'title' => $title,
