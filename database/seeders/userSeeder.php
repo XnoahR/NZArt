@@ -22,6 +22,8 @@ class userSeeder extends Seeder
             'password' => 'password',
         ]);
 
+        User::factory(25)->create();
+
         //Admin
         User::create([
             'name' => 'Admin',

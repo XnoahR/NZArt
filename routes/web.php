@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -118,15 +119,8 @@ Route::group(['prefix' => 'catalog'], function () {
 });
 
 Route::group(['prefix' => 'admin'], function () {
-   Route::get('/', function () {
-       $title = 'Admin';
-       $navTitle = 'Dashboard';
-       return view(
-           'Admin.index',
-           [
-               'title' => $title,
-               'navTitle' => $navTitle
-           ]
-       );
-   });
+    Route::get('/user', [userController::class, 'user'])->name('admin.user');
+    Route::get('/user/edit/{id}', [userController::class, 'edit'])->name('admin.edit');
+    Route::post('/user/store', [userController::class, 'store'])->name('admin.store');
+    Route::delete('/user/delete/{id}', [userController::class, 'delete'])->name('admin.delete');
 });

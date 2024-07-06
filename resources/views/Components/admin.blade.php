@@ -7,7 +7,7 @@
    @include('Components.sidebar')
 
     @yield('content')
-
+  
     @include('Components.script')
 </body>
 </html>
