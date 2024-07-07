@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 
 class orderController extends Controller
@@ -37,6 +38,11 @@ class orderController extends Controller
             return redirect()->route('admin.order')->with('error', 'Order not found');
         }
         $order->status = $request->status;
+        if ($order->status == 'cancelled') {
+            $payment = Payment::where('order_id', $order->id)->first();
+            $payment->status = 'pending';
+            $payment->save();
+        }
         $order->save();
 
         return redirect()->route('admin.order')->with('success', 'Order status updated');
