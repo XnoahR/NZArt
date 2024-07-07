@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\orderController;
+use App\Http\Controllers\paymentController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
@@ -142,5 +143,11 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/store',[orderController::class, 'store'])->name('admin.storeOrder');
         Route::put('/update/{id}',[orderController::class, 'update'])->name('admin.updateOrder');
         Route::delete('/delete/{id}',[orderController::class, 'delete'])->name('admin.deleteOrder');
+    });
+    Route::group(['prefix'=>'payment'], function(){
+        Route::get('/',[paymentController::class, 'index'])->name('admin.payment');
+        Route::get('/{id}',[paymentController::class, 'view'])->name('admin.viewDetail');
+        
+
     });
 });

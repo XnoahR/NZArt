@@ -22,8 +22,9 @@ return new class extends Migration
                 ->nullable();
             $table->dateTime('paid_at')
                 ->nullable();
-            
-            // $table->timestamps();
+            $table->enum('status', ['pending', 'paid', 'failed'])
+                ->default('pending');
+            $table->timestamps();
         });
     }
 

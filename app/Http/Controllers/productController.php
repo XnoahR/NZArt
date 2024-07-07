@@ -13,7 +13,9 @@ class productController extends Controller
     {
         $title = 'Product Management';
         $navTitle = 'Product';
-        $products = Product::paginate(10);
+        //descemding order
+        $products = Product::orderBy('created_at', 'desc')->paginate(10);
+
         return view('Admin.product.index', [
             'title' => $title,
             'navTitle' => $navTitle,

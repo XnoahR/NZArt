@@ -25,7 +25,7 @@ class orderController extends Controller
     {
         //check if file did not exist
         if (!file_exists(public_path('files/' . $file))) {
-            return redirect()->route('admin.order')->with('danger', 'File not found');
+            return redirect()->back()->with('danger', 'File not found');
         }
         return response()->download(public_path('files/' . $file));
     }
