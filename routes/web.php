@@ -128,8 +128,11 @@ Route::group(['prefix' => 'admin'], function () {
     });
     Route::group(['prefix'=>'product'], function(){
         Route::get('/',[productController::class, 'index'])->name('admin.product');
+        Route::get('/create',[productController::class, 'create'])->name('admin.createProduct');
+        Route::post('/store',[productController::class, 'store'])->name('admin.storeProduct');
         Route::get('/edit/{id}',[productController::class, 'edit'])->name('admin.editProduct');
         Route::put('/update',[productController::class, 'update'])->name('admin.updateProduct');
+        Route::delete('/delete/{id}',[productController::class, 'delete'])->name('admin.deleteProduct');
         // Route::get('/', [userController::class, 'product'])->name('admin.product');
         // Route::get('/edit/{id}', [userController::class, 'editProduct'])->name('admin.editProduct');
         // Route::post('/store', [userController::class, 'storeProduct'])->name('admin.storeProduct');

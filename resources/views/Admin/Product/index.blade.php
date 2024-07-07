@@ -15,10 +15,35 @@
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <caption
                     class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-                    Users
+                    Products
                     <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
-                        List of all users
+                        List of all products
                     </p>
+                    <div class="flex justify-between">
+
+                    
+                    <a href="{{ route('admin.createProduct') }}"
+                        {{-- class="inline-flex items-center 
+                        justify-center px-4 py-2 mt-2 text-sm font-medium leading-5 text-white transition-colors duration-150 
+                        bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-black focus:outline-none 
+                        focus:shadow-outline-blue dark:text-gray-200 dark:bg-blue-500"> --}}
+                        class = "inline-flex items-center justify-center px-4 py-2 mt-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+                        Add Product
+                    </a>
+                    {{-- Search --}}
+                    <form action="#" method="GET">
+                        <div class="flex items
+                        -center justify-center mt-4">
+                            <input type="text" name="search" id="search"
+                                class="w-1/2 px-3 py-2 leading-tight text-sm text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                placeholder="Search Product">
+                            <button
+                                class="inline-flex items-center justify-center px-4 py-2 ml-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue dark:text-gray-200 dark:bg-blue-500">
+                                Search
+                            </button>
+                        </div>
+                    </form>
+                </div>
                 </caption>
                 <thead class="text-xs text-gray-700 uppercase bg-blue-500 dark:bg-gray-700 dark:text-gray-400">
                     <tr>

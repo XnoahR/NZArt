@@ -22,12 +22,44 @@ class productController extends Controller
 
     public function create()
     {
-        $title = 'Create Product';
+        $title = 'Add New Product';
         $navTitle = 'Product';
         return view('Admin.product.create', [
             'title' => $title,
             'navTitle' => $navTitle
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        // Validate the request
+        $validate = $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'stock' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'description' => 'required',
+        ]);
+
+        // Check if image is uploaded
+        if ($request->hasFile('image')) {
+            $fileName = time() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('img'), $fileName);
+            $filePath = 'img/' . $fileName; // Store path relative to public
+            $validate['image'] = $filePath;
+        }
+        else {
+            return redirect()->route('admin.createProduct')->with('error', 'Please upload an image');
+        }
+
+        if (!$validate) {
+            return redirect()->route('admin.createProduct')->with('error', 'Failed to add product');
+        }
+        //please fill the box
+        // Create new product
+        Product::create($validate);
+
+        return redirect()->route('admin.product')->with('success', 'Product added successfully');
     }
 
     public function edit($id)
@@ -81,5 +113,18 @@ class productController extends Controller
         $product->save();
 
         return redirect()->route('admin.product')->with('success', 'Product data updated successfully');
+    }
+
+    public function delete($id)
+    {
+        $product = Product::find($id);
+
+        if (!$product) {
+            return redirect()->route('admin.product')->with('error', 'Product not found');
+        }
+
+        $product->delete();
+
+        return redirect()->route('admin.product')->with('danger', 'Product deleted successfully');
     }
 }
