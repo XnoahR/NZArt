@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Http\Request;
 
 class productController extends Controller
@@ -106,6 +107,7 @@ class productController extends Controller
 
         // Update the product data
         $product->name = $validate['name'];
+        $product->slug = str()->slug($validate['name'] . '-' . number_format(rand(0, 9999)));
         $product->price = $validate['price'];
         $product->stock = $validate['stock'];
         $product->description = $validate['description'];
