@@ -70,21 +70,33 @@
                 <ul class="inline-flex -space-x-px text-sm mx-auto">
                     <li>
                         <a href="{{ $users->previousPageUrl() }}"
-                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg @if ($users->onFirstPage()) text-gray-300 cursor-not-allowed pointer-events-none  dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700  @else hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white @endif"
-                            @if ($users->onFirstPage()) aria-disabled="true" tabindex="-1" @endif>Previous</a>
+                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg 
+                           {{ $users->onFirstPage() ? 'text-gray-300 cursor-not-allowed pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700' : 'hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' }}"
+                            @if ($users->onFirstPage()) aria-disabled="true" tabindex="-1" @endif>
+                            Previous
+                        </a>
                     </li>
+
                     @for ($i = 1; $i <= $users->lastPage(); $i++)
                         <li>
                             <a href="{{ $users->url($i) }}"
-                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 {{ $users->currentPage() == $i ? 'bg-blue-500 text-white' : 'bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' }}">{{ $i }}</a>
+                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 
+                               {{ $users->currentPage() == $i ? 'bg-blue-500 text-white' : 'bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' }}">
+                                {{ $i }}
+                            </a>
                         </li>
                     @endfor
+
                     <li>
                         <a href="{{ $users->nextPageUrl() }}"
-                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg @if ($users->hasMorePages()) hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white @else text-gray-300 cursor-not-allowed pointer-events-none  dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 @endif"
-                            @if (!$users->hasMorePages()) aria-disabled="true" tabindex="-1" @endif>Next</a>
+                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg 
+                           {{ $users->hasMorePages() ? 'hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' : 'text-gray-300 cursor-not-allowed pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700' }}"
+                            @if (!$users->hasMorePages()) aria-disabled="true" tabindex="-1" @endif>
+                            Next
+                        </a>
                     </li>
                 </ul>
+
             </nav>
 
 

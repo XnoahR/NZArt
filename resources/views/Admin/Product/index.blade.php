@@ -21,29 +21,28 @@
                     </p>
                     <div class="flex justify-between">
 
-                    
-                    <a href="{{ route('admin.createProduct') }}"
-                        {{-- class="inline-flex items-center 
+
+                        <a href="{{ route('admin.createProduct') }}" {{-- class="inline-flex items-center 
                         justify-center px-4 py-2 mt-2 text-sm font-medium leading-5 text-white transition-colors duration-150 
                         bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-black focus:outline-none 
                         focus:shadow-outline-blue dark:text-gray-200 dark:bg-blue-500"> --}}
-                        class = "inline-flex items-center justify-center px-4 py-2 mt-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
-                        Add Product
-                    </a>
-                    {{-- Search --}}
-                    <form action="#" method="GET">
-                        <div class="flex items
+                            class = "inline-flex items-center justify-center px-4 py-2 mt-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+                            Add Product
+                        </a>
+                        {{-- Search --}}
+                        <form action="#" method="GET">
+                            <div class="flex items
                         -center justify-center mt-4">
-                            <input type="text" name="search" id="search"
-                                class="w-1/2 px-3 py-2 leading-tight text-sm text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                placeholder="Search Product">
-                            <button
-                                class="inline-flex items-center justify-center px-4 py-2 ml-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue dark:text-gray-200 dark:bg-blue-500">
-                                Search
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                                <input type="text" name="search" id="search"
+                                    class="w-1/2 px-3 py-2 leading-tight text-sm text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    placeholder="Search Product">
+                                <button
+                                    class="inline-flex items-center justify-center px-4 py-2 ml-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue dark:text-gray-200 dark:bg-blue-500">
+                                    Search
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </caption>
                 <thead class="text-xs text-gray-700 uppercase bg-blue-500 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -95,20 +94,32 @@
                 <ul class="inline-flex -space-x-px text-sm mx-auto">
                     <li>
                         <a href="{{ $products->previousPageUrl() }}"
-                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg @if ($products->onFirstPage()) text-gray-300 cursor-not-allowed pointer-events-none  dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700  @else hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white @endif"
-                            @if ($products->onFirstPage()) aria-disabled="true" tabindex="-1" @endif>Previous</a>
+                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg 
+                           {{ $products->onFirstPage() ? 'text-gray-300 cursor-not-allowed pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700' : 'hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' }}"
+                            @if ($products->onFirstPage()) aria-disabled="true" tabindex="-1" @endif>
+                            Previous
+                        </a>
                     </li>
+
                     @for ($i = 1; $i <= $products->lastPage(); $i++)
                         <li>
                             <a href="{{ $products->url($i) }}"
-                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 {{ $products->currentPage() == $i ? 'bg-blue-500 text-white' : 'bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' }}">{{ $i }}</a>
+                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 
+                               {{ $products->currentPage() == $i ? 'bg-blue-500 text-white' : 'bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' }}">
+                                {{ $i }}
+                            </a>
                         </li>
                     @endfor
+
                     <li>
                         <a href="{{ $products->nextPageUrl() }}"
-                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg @if ($products->hasMorePages()) hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white @else text-gray-300 cursor-not-allowed pointer-events-none  dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 @endif"
-                            @if (!$products->hasMorePages()) aria-disabled="true" tabindex="-1" @endif>Next</a>
+                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg 
+                           {{ $products->hasMorePages() ? 'hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' : 'text-gray-300 cursor-not-allowed pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700' }}"
+                            @if (!$products->hasMorePages()) aria-disabled="true" tabindex="-1" @endif>
+                            Next
+                        </a>
                     </li>
+
                 </ul>
             </nav>
 
