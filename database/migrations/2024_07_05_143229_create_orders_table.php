@@ -24,12 +24,13 @@ return new class extends Migration
                 ->default('A4')
                 ->nullable();
             $table->string('file');
+            $table->integer('pages');
             $table->integer('quantity')
                 ->default(1);
             $table->integer('price');
             $table->enum('status', ['pending', 'processing', 'completed', 'cancelled'])
                 ->default('pending');
-            // $table->timestamps();
+            $table->timestamps();
         });
     }
 

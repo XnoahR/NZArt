@@ -15,75 +15,133 @@
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <caption
                     class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-                    Users
+                    Orders
                     <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
-                        List of all users
+                        List of all Orders
                     </p>
+
                 </caption>
-                <thead class="text-xs text-gray-700 uppercase bg-blue-500 dark:bg-gray-700 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-blue-500 dark:bg-gray-700 dark:text-gray-400 text-center">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            Nama
+                            User
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Email
+                            produk
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Phone
+                            Jenis
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Alamat
+                            Ukuran
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            <span class="sr-only">Edit</span>
+                            Design
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Halaman
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Rangkap
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Harga
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Action
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($users as $user)
+                    @foreach ($orders as $order)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $user->name }}
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $order->user->name }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $user->email }}
+                                {{ $order->product->name }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $user->phone }}
+                                {{ $order->material }}
                             </td>
-                            <td class="px-6 py-4 overflow-x-hidden">
-                                {{ $user->address }}
+                            <td class="px-6 py-4">
+                                {{ $order->size }}
+                            </td>
+                            {{-- Download File Button --}}
+                            <td class="px-6 py-4 text-center">
+                                <a href="{{ route('admin.downloadFile', $order->file) }}"
+                                    class="inline-flex items-center justify-center p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-500">
+                                    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path fill-rule="evenodd"
+                                            d="M13 11.15V4a1 1 0 1 0-2 0v7.15L8.78 8.374a1 1 0 1 0-1.56 1.25l4 5a1 1 0 0 0 1.56 0l4-5a1 1 0 1 0-1.56-1.25L13 11.15Z"
+                                            clip-rule="evenodd" />
+                                        <path fill-rule="evenodd"
+                                            d="M9.657 15.874 7.358 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2.358l-2.3 2.874a3 3 0 0 1-4.685 0ZM17 16a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $order->pages }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $order->quantity }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $order->price }}
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <a href="{{ route('admin.edit', $user->id) }}"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                <form action="{{ route('admin.updateOrder', $order->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <select class="rounded-md text-blue-500 mx-auto w-24" name="status" id="status">
+                                        <option value="pending" @if ($order->status == 'pending') selected @endif>Pending</option>
+                                        <option value="processing" @if ($order->status == 'processing') selected @endif>Processing</option>
+                                        <option value="completed" @if ($order->status == 'completed') selected @endif>Completed</option>
+                                        <option value="cancelled" @if ($order->status == 'cancelled') selected @endif>Cancelled</option>
+                                    </select>
+                                    <button type="submit" class="px-3 py-1 text-sm text-white bg-blue-500 rounded-lg hover:bg-blue-700 dark:bg-gray-700 dark:hover:bg-blue-600">
+                                        V
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
-
-
                 </tbody>
+                
             </table>
             <nav aria-label="Page navigation example"
                 class="flex justify-center py-3 text-gray-900 bg-white dark:text-white dark:bg-gray-800">
                 <ul class="inline-flex -space-x-px text-sm mx-auto">
                     <li>
-                        <a href="{{ $users->previousPageUrl() }}"
-                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg @if ($users->onFirstPage()) text-gray-300 cursor-not-allowed pointer-events-none  dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700  @else hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white @endif"
-                            @if ($users->onFirstPage()) aria-disabled="true" tabindex="-1" @endif>Previous</a>
+                        <a href="{{ $orders->previousPageUrl() }}"
+                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg 
+                           {{ $orders->onFirstPage() ? 'text-gray-300 cursor-not-allowed pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700' : 'hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' }}"
+                            @if ($orders->onFirstPage()) aria-disabled="true" tabindex="-1" @endif>
+                            Previous
+                        </a>
                     </li>
-                    @for ($i = 1; $i <= $users->lastPage(); $i++)
+
+                    @for ($i = 1; $i <= $orders->lastPage(); $i++)
                         <li>
-                            <a href="{{ $users->url($i) }}"
-                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 {{ $users->currentPage() == $i ? 'bg-blue-500 text-white' : 'bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' }}">{{ $i }}</a>
+                            <a href="{{ $orders->url($i) }}"
+                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 
+                               {{ $orders->currentPage() == $i ? 'bg-blue-500 text-white' : 'bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' }}">
+                                {{ $i }}
+                            </a>
                         </li>
                     @endfor
+
                     <li>
-                        <a href="{{ $users->nextPageUrl() }}"
-                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg @if ($users->hasMorePages()) hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white @else text-gray-300 cursor-not-allowed pointer-events-none  dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 @endif"
-                            @if (!$users->hasMorePages()) aria-disabled="true" tabindex="-1" @endif>Next</a>
+                        <a href="{{ $orders->nextPageUrl() }}"
+                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg 
+                           {{ $orders->hasMorePages() ? 'hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' : 'text-gray-300 cursor-not-allowed pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700' }}"
+                            @if (!$orders->hasMorePages()) aria-disabled="true" tabindex="-1" @endif>
+                            Next
+                        </a>
                     </li>
+
                 </ul>
             </nav>
 
