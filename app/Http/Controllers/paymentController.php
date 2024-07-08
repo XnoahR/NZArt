@@ -31,5 +31,19 @@ class paymentController extends Controller
             'order' => $order
         ]);
     }
+
+    public function paymentCheck($id){
+        $order = Order::find($id);
+        if($order->user_id != auth()->user()->id){
+            return redirect()->route('admin.payment')->with('error', 'You are not authorized to access this page');
+        }
+        $title = 'Bayar Pesanan';
+        $navTitle = 'Catalog';
+        return view('payment.check', [
+            'title' => $title,
+            'navTitle' => $navTitle,
+            'order' => $order
+        ]);
+    }
     
 }

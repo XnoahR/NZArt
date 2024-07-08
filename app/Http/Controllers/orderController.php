@@ -12,7 +12,7 @@ class orderController extends Controller
     //
     public function index()
     {
-        $orders = Order::with(['user', 'product'])->orderBy('created_at','desc')->paginate(10);
+        $orders = Order::with(['user', 'product'])->orderBy('created_at', 'desc')->paginate(10);
 
         $title = 'Order Management';
         $navTitle = 'Order';

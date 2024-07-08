@@ -74,6 +74,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
 Route::group(['prefix' => 'order'], function () {
     Route::post('/{id}', [orderController::class, 'store'])->name('order.create');
+    Route::get('/payment/{id}', [paymentController::class, 'create'])->name('order.payment');
 });
 
 
