@@ -1,5 +1,13 @@
 @extends('Components.main')
 @section('content')
+    @if($errors->any())
+        <div class="bg-red-500 dark:bg-red-800 text-white text-center py-2">
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
+
     <section class="container mt-24 mx-auto h-screen">
         <div class="flex flex-col">
             <div class="bg-blue-500 dark:bg-blue-800 py-2 text-3xl text-white font-thin ps-3 rounded-t-md">Katalog</div>
@@ -11,7 +19,8 @@
                 </div>
                 <div class="bg-gray-50 dark:bg-gray-900 text-black dark:text-white flex flex-col pt-3 px-6">
                     <h1 class="text-2xl font-semibold border-b pb-2 border-black dark:border-white">{{ $product->name }}</h1>
-                    <form action="#" method="">
+                    <form action="{{ route('order.create',$product->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="flex flex-col space-y-2 mt-3">
                             <label for="size">Ukuran</label>
                             <select name="size" id="size"
@@ -26,19 +35,19 @@
                             <label for="material">Jenis Cetakan</label>
                             <select name="material" id="material"
                                 class="border rounded-md p-1 bg-white dark:bg-gray-700 text-black dark:text-white">
-                                <option value="artpaper">Art Paper</option>
-                                <option value="hvs">HVS</option>
-                                <option value="ivory">Ivory</option>
-                                <option value="linen">Linen</option>
-                                <option value="manila">Manila</option>
+                                <option value="Art Paper">Art Paper</option>
+                                <option value="HVS">HVS</option>
+                                <option value="Ivory">Ivory</option>
+                                <option value="Linen">Linen</option>
+                                <option value="Manila">Manila</option>
                             </select>
                         </div>
                         <div class="flex flex-col space-y-2 mt-3">
 
-                            <label for="design">File Design</label>
+                            <label for="file">File Design</label>
                             <input
                                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                id="design" type="file">
+                                id="file" name="file" type="file">
 
                         </div>
                         <div class="flex flex-col space-y-2 mt-3">
@@ -47,8 +56,8 @@
                                 class="border rounded-md p-1 bg-white dark:bg-gray-700 text-black dark:text-white">
                         </div>
                         <div class="flex flex-col space-y-2 mt-3">
-                            <label for="copies">Jumlah Rangkap</label>
-                            <input type="number" name="copies" id="copies"
+                            <label for="quantity">Jumlah Rangkap</label>
+                            <input type="number" name="quantity" id="quantity"
                                 class="border rounded-md p-1 bg-white dark:bg-gray-700 text-black dark:text-white">
                         </div>
 

@@ -24,7 +24,7 @@ Route::get('/', function () {
     );
 })->name('home');
 
-Route::group(['middleware'=>'login'], function () {
+Route::group(['middleware' => 'login'], function () {
     Route::get('/login', [sessionController::class, 'loginPage'])->name('session.loginPage');
     Route::post('/login', [sessionController::class, 'login'])->name('session.login');
     Route::get('/register', [sessionController::class, 'registerPage'])->name('session.registerPage');
@@ -72,6 +72,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     });
 });
 
+Route::group(['prefix' => 'order'], function () {
+    Route::post('/{id}', [orderController::class, 'store'])->name('order.create');
+});
 
 
 
