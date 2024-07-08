@@ -9,7 +9,8 @@ use App\Http\Controllers\orderController;
 use App\Http\Controllers\paymentController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\sessionController;
-
+use App\Http\Middleware\isAdmin;
+use App\Http\Middleware\isLogin;
 
 Route::get('/', function () {
     $title = 'Home';
@@ -23,13 +24,13 @@ Route::get('/', function () {
     );
 })->name('home');
 
-Route::group([], function () {
+Route::group(['middleware'=>'login'], function () {
     Route::get('/login', [sessionController::class, 'loginPage'])->name('session.loginPage');
     Route::post('/login', [sessionController::class, 'login'])->name('session.login');
     Route::get('/register', [sessionController::class, 'registerPage'])->name('session.registerPage');
     Route::post('/register', [sessionController::class, 'register'])->name('session.register');
-    Route::get('/logout', [sessionController::class, 'logout'])->name('session.logout');
 });
+Route::get('/logout', [sessionController::class, 'logout'])->name('session.logout');
 
 
 Route::group(['prefix' => 'catalog'], function () {
@@ -37,7 +38,7 @@ Route::group(['prefix' => 'catalog'], function () {
     Route::get('/{slug}', [catalogController::class, 'show'])->name('catalog.detail');
 });
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', function () {
         return redirect()->route('admin.user');
     })->name('admin');
@@ -96,4 +97,4 @@ Route::get('/profile', function () {
             'navTitle' => $navTitle
         ]
     );
-});
+})->middleware('needLogin');
