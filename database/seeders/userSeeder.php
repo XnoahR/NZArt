@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use function Symfony\Component\String\b;
+
 class userSeeder extends Seeder
 {
     /**
@@ -19,7 +21,7 @@ class userSeeder extends Seeder
             'email' => 'JD@example.com',
             'phone' => '081234567890',
             'address' => 'Jl. Raya No 1',
-            'password' => 'password',
+            'password' => bcrypt('password'),
         ]);
 
         User::factory(25)->create();
@@ -30,7 +32,7 @@ class userSeeder extends Seeder
             'email' => 'admin@nzart.com',
             'phone' => '081234567890',
             'address' => 'Jl. Raya No 1',
-            'password' => 'admin',
+            'password' => bcrypt('password'),
             'role' => 'admin',
         ]);
     }

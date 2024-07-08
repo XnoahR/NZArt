@@ -5,11 +5,12 @@
             <div class="bg-blue-500 dark:bg-blue-800 py-2 text-3xl text-white font-thin ps-3 rounded-t-md">Katalog</div>
             @include('Components.breadcrumb')
             <div class="grid grid-cols-1 md:grid-cols-2">
-                <div class="bg-red-50 dark:bg-red-900 md:max-h-none max-h-64">
-                    <img class="md:w-full w-full h-64 md:h-full object-cover" src="{{ asset('img/Cert.jpg') }}" alt="">
+                <div class="bg-red-50 dark:bg-red-900 md:max-h-screen max-h-64">
+                    <img class="md:w-full w-full h-64 md:h-full object-cover" src="{{ asset($product->image) }}"
+                        alt="">
                 </div>
                 <div class="bg-gray-50 dark:bg-gray-900 text-black dark:text-white flex flex-col pt-3 px-6">
-                    <h1 class="text-2xl font-semibold border-b pb-2 border-black dark:border-white">Print Certificate</h1>
+                    <h1 class="text-2xl font-semibold border-b pb-2 border-black dark:border-white">{{ $product->name }}</h1>
                     <form action="#" method="">
                         <div class="flex flex-col space-y-2 mt-3">
                             <label for="size">Ukuran</label>
@@ -65,8 +66,7 @@
             </div>
             <div class="bg-white space-y-3 p-3 dark:bg-slate-900 dark:text-white text-black">
                 <h1 class="text-2xl font-semibold border-b pb-2 border-black dark:border-white">Deskripsi Produk</h1>
-                <p> berbagai kebutuhan cetakmu. Hadir dengan teknologi digital print sehingga Anda dapat mencetak dalam
-                    jumlah sedikit dalam waktu singkat.</p>
+                <p> {{ $product->description }}</p>
 
             </div>
         </div>
