@@ -91,6 +91,28 @@ Route::get('/help', function () {
     );
 });
 
+Route::group(['prefix' => 'account', 'middleware' => 'needLogin'], function () {
+    Route::get('/', [userController::class, 'index'])->name('account');
+    Route::get('/order', [userController::class, 'order'])->name('account.order');
+    Route::get('/order/{id}', [userController::class, 'orderDetail'])->name('account.orderDetail');
+    Route::get('/profile', [userController::class, 'profile'])->name('account.profile');
+    Route::put('/profile', [userController::class, 'updateProfile'])->name('account.updateProfile');
+    Route::get('/payment', [userController::class, 'payment'])->name('account.payment');
+});
+
+Route::get('/account', function () {
+    $title = 'Account';
+    $navTitle = 'Account';
+    return view(
+        'Account.index',
+        [
+            'title' => $title,
+            'navTitle' => $navTitle
+        ]
+    );
+})->middleware('needLogin')->name('account');
+
+
 Route::get('/profile', function () {
     $title = 'Profile';
     $navTitle = 'Profile';
@@ -101,4 +123,4 @@ Route::get('/profile', function () {
             'navTitle' => $navTitle
         ]
     );
-})->middleware('needLogin');
+})->middleware('needLogin')->name('profile');

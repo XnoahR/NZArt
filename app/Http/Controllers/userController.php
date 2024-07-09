@@ -3,79 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class userController extends Controller
 {
-    //
-    public function user()
-    {
-        $users = User::where('role', 'user')->paginate(10);
-
-        $title = 'User Management';
-        $navTitle = 'User';
-        return view('Admin.user.index', [
-            'users' => $users,
+    public function index(){
+        $user = auth()->user();
+        $title = 'Account';
+        $navTitle = 'Account';
+        return view('user.index', [
             'title' => $title,
-            'navTitle' => $navTitle
+            'navTitle' => $navTitle,
+            'user' => $user
         ]);
     }
 
-
-    public function edit($id)
-    {
-        $user = User::find($id);
-        $title = 'Edit ' . $user->name . ' Data';
-        $navTitle = 'User';
-        return view(
-            'Admin.user.edit',
-            [
-                'user' => $user,
-                'title' => $title,
-                'navTitle' => $navTitle
-            ]
-        );
-    }
-
-    public function store(Request $request)
-    {
-        // Validate the request
-        $validate = $request->validate([
-            'name' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
+    public function profile(){
+        $user = auth()->user();
+        $title = 'Profile';
+        $navTitle = 'Account';
+        return view('account.profile', [
+            'title' => $title,
+            'navTitle' => $navTitle,
+            'user' => $user
         ]);
-
-        // Retrieve the user by ID
-        $user = User::find($request->id);
-
-        // Check if user exists
-        if (!$user) {
-            return redirect()->route('admin.user')->with('error', 'User not found');
-        }
-
-        // Update the user data
-        $user->name = $validate['name'];
-        $user->phone = $validate['phone'];
-        $user->address = $validate['address'];
-        $user->save();
-
-        return redirect()->route('admin.user')->with('success', 'Data successfully updated');
     }
 
-    public function delete($id)
-    {
-        // Retrieve the user by ID
-        $user = User::find($id);
-
-        // Check if user exists
-        if (!$user) {
-            return redirect()->route('admin.user')->with('error', 'User not found');
-        }
-
-        // Delete the user
-        $user->delete();
-
-        return redirect()->route('admin.user')->with('danger', 'Data successfully deleted');
+    public function order(){
+        $user = auth()->user();
+        $orders = Order::where('user_id', $user->id)->paginate(10);
+        $title = 'Order History';
+        $navTitle = 'Account';
+        return view('account.order', [
+            'title' => $title,
+            'navTitle' => $navTitle,
+            'orders' => $orders
+        ]);
     }
 }
