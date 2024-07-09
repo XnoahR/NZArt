@@ -62,9 +62,11 @@
                         </div>
 
                         <div class="flex flex-col space-y-2 mt-3">
-                            <label for="total">Total Harga</label>
-                            <input type="text" name="total" id="total"
-                                class="border rounded-md p-1 bg-white dark:bg-gray-700 text-black dark:text-white" readonly>
+                            <label for="total">Harga per lembar</label>
+
+                            <p id="total" class="  text-xl font-semibold text-black dark:text-white">
+                                Rp. {{ $product->price }}</p>
+
                         </div>
                         <button type="submit"
                             class="bg-blue-500 dark:bg-blue-700 hover:bg-blue-700 text-white w-2/5 text-center mx-auto py-3 px-4 rounded-full mt-6">

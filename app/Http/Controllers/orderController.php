@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\paymentController;
 
 class orderController extends Controller
 {
@@ -80,9 +81,6 @@ class orderController extends Controller
         $order->status = 'pending';
         $order->save();
 
-        return response()->json([
-            'message' => 'Order created successfully',
-            'order' => $order
-        ]);
+        return redirect()->route('order.payment', $order->id);
     }
 }

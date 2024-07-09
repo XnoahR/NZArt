@@ -11,7 +11,7 @@ class paymentController extends Controller
     //
     public function index()
     {
-        $payments = Payment::with(['order','user'])->paginate(10);   
+        $payments = Payment::with(['order', 'user'])->paginate(10);
         $title = 'Payment Management';
         $navTitle = 'Payment';
         return view('Admin.payment.index', [
@@ -21,7 +21,8 @@ class paymentController extends Controller
         ]);
     }
 
-    public function view($id){
+    public function view($id)
+    {
         $order = Order::find($id);
         $title = 'Payment Details';
         $navTitle = 'Payment';
@@ -32,18 +33,18 @@ class paymentController extends Controller
         ]);
     }
 
-    public function paymentCheck($id){
+    public function payment($id)
+    {
         $order = Order::find($id);
-        if($order->user_id != auth()->user()->id){
+        if ($order->user_id != auth()->user()->id) {
             return redirect()->route('admin.payment')->with('error', 'You are not authorized to access this page');
         }
         $title = 'Bayar Pesanan';
         $navTitle = 'Catalog';
-        return view('payment.check', [
+        return view('payment', [
             'title' => $title,
             'navTitle' => $navTitle,
             'order' => $order
         ]);
     }
-    
 }

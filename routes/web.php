@@ -61,7 +61,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::group(['prefix' => 'order'], function () {
         Route::get('/', [orderController::class, 'index'])->name('admin.order');
         Route::get('/create', [orderController::class, 'create'])->name('admin.createOrder');
-        Route::get('/download/{file}', [orderController::class, 'fileDownload'])->name('admin.downloadFile');
+        
         Route::post('/store', [orderController::class, 'store'])->name('admin.storeOrder');
         Route::put('/update/{id}', [orderController::class, 'update'])->name('admin.updateOrder');
         Route::delete('/delete/{id}', [orderController::class, 'delete'])->name('admin.deleteOrder');
@@ -74,10 +74,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
 Route::group(['prefix' => 'order'], function () {
     Route::post('/{id}', [orderController::class, 'store'])->name('order.create');
-    Route::get('/payment/{id}', [paymentController::class, 'create'])->name('order.payment');
+    Route::get('/payment/{id}', [paymentController::class, 'payment'])->name('order.payment');
 });
 
-
+Route::get('/download/{file}', [orderController::class, 'fileDownload'])->name('admin.downloadFile');
 
 Route::get('/help', function () {
     $title = 'Help';

@@ -32,13 +32,28 @@ class userController extends Controller
 
     public function order(){
         $user = auth()->user();
-        $orders = Order::where('user_id', $user->id)->paginate(10);
+        $orders = Order::where('user_id', $user->id)->orderBy('created_at','desc')->paginate(10);
         $title = 'Order History';
         $navTitle = 'Account';
         return view('account.order', [
             'title' => $title,
             'navTitle' => $navTitle,
             'orders' => $orders
+        ]);
+    }
+
+    public function orderDetail($id){
+        $user = auth()->user();
+        $order = Order::find($id);
+        if($order->user_id != $user->id){
+            return redirect()->route('account.order')->with('error', 'You are not authorized to access this page');
+        }
+        $title = 'Order Detail';
+        $navTitle = 'Account';
+        return view('account.orderDetail', [
+            'title' => $title,
+            'navTitle' => $navTitle,
+            'order' => $order
         ]);
     }
 }
