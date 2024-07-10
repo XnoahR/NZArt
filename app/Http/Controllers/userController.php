@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 
 class userController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $user = auth()->user();
         $title = 'Account';
         $navTitle = 'Account';
@@ -20,7 +21,8 @@ class userController extends Controller
         ]);
     }
 
-    public function profile(){
+    public function profile()
+    {
         $user = auth()->user();
         $title = 'Profile';
         $navTitle = 'Account';
@@ -31,9 +33,32 @@ class userController extends Controller
         ]);
     }
 
-    public function order(){
+    public function updateProfile(Request $request)
+    {
+        $id = auth()->user()->id;
+        $user = User::find($id);
+        $validate = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'phone' => 'required',
+            'address' => 'required'
+        ]);
+
+        if ($user->email != $validate['email']) {
+            $validate['email'] = $user->email;
+        }
+
+        $user->name = $validate['name'];
+        $user->phone = $validate['phone'];
+        $user->address = $validate['address'];
+        $user->save();
+        return redirect()->route('account.profile')->with('success', 'Profile updated');
+    }
+
+    public function order()
+    {
         $user = auth()->user();
-        $orders = Order::where('user_id', $user->id)->orderBy('created_at','desc')->paginate(10);
+        $orders = Order::where('user_id', $user->id)->orderBy('created_at', 'desc')->paginate(10);
         $title = 'Order History';
         $navTitle = 'Account';
         return view('account.order', [
@@ -43,10 +68,11 @@ class userController extends Controller
         ]);
     }
 
-    public function orderDetail($id){
+    public function orderDetail($id)
+    {
         $user = auth()->user();
         $order = Order::find($id);
-        if($order->user_id != $user->id){
+        if ($order->user_id != $user->id) {
             return redirect()->route('account.order')->with('error', 'You are not authorized to access this page');
         }
         $title = 'Order Detail';
@@ -58,20 +84,20 @@ class userController extends Controller
         ]);
     }
 
-    public function payment() {
+    public function payment()
+    {
         $user = auth()->user();
         $orders = Order::where('user_id', $user->id)->get();
         $orderIds = $orders->pluck('id')->toArray(); // Convert collection to array
         $payments = Payment::whereIn('order_id', $orderIds)->paginate(10); // Use whereIn for multiple values
         $title = 'Payment History';
         $navTitle = 'Account';
-        
-    
+
+
         return view('account.payment', [
             'title' => $title,
             'navTitle' => $navTitle,
             'payments' => $payments // Corrected variable name to 'payments'
         ]);
     }
-    
 }

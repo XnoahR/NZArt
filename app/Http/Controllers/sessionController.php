@@ -73,7 +73,7 @@ class sessionController extends Controller
         $user->role = 'user';
         $user->save();
 
-        return redirect()->route('session.loginPage');
+        return redirect()->route('session.loginPage')->with('success', 'Register success');
     }
 
     public function logout()

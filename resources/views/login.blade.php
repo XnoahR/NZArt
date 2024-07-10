@@ -7,6 +7,19 @@
 </head>
 
 <body class="dark:bg-gray-900">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>@include('Components.warning_toaster')</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if (session('success'))
+        @include('Components.success_toaster')
+    @endif
     <section class="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center">
         <div
             class="w-full max-w-md px-6 py-8 bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">

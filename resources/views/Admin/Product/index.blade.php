@@ -50,7 +50,7 @@
                             Nama
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Slug
+                            Link
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Harga
@@ -71,7 +71,7 @@
                                 {{ $product->name }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $product->slug }}
+                                <a href="{{ route('catalog.detail', $product->slug) }}" class="bg-blue-500 p-2 rounded-md hover:bg-blue-700 text-white"> Link</a>
                             </td>
                             <td class="px-6 py-4">
                                 Rp {{ $product->price }}
