@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\isAdmin;
 use App\Http\Middleware\isLogin;
+use App\Http\Middleware\isUser;
 use App\Http\Middleware\needLogin;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -17,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         //
         $middleware->alias([
             'admin' => isAdmin::class,
+            'user' => isUser::class,
             'login' => isLogin::class,
             'needLogin' => needLogin::class,
         ]);

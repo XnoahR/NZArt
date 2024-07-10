@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class needLogin
+class isUser
 {
     /**
      * Handle an incoming request.
@@ -15,9 +15,10 @@ class needLogin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check()) {
-            return redirect()->route('session.loginPage')->with('danger', 'You need to login first');
+
+        if (auth()->check() && auth()->user()->role == 'user') {
+            return $next($request);
         }
-        return $next($request);
+        abort(403);
     }
 }

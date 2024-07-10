@@ -81,6 +81,12 @@ class orderController extends Controller
         $order->status = 'pending';
         $order->save();
 
-        return redirect()->route('order.payment', $order->id);
+        $payment = new Payment();
+        $payment->order_id = $order->id;
+        $payment->status = 'pending';
+        $payment->total = $order->price;
+        $payment->save();
+
+        return redirect()->route('order.payment', $payment->id);
     }
 }

@@ -72,9 +72,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     });
 });
 
-Route::group(['prefix' => 'order'], function () {
+Route::group(['prefix' => 'order','middleware'=>'user'], function () {
     Route::post('/{id}', [orderController::class, 'store'])->name('order.create');
+    Route::post('/payment/{id}', [paymentController::class, 'create'])->name('order.createPayment');
     Route::get('/payment/{id}', [paymentController::class, 'payment'])->name('order.payment');
+    Route::put('/payment/{id}', [paymentController::class, 'pay'])->name('order.pay');
 });
 
 Route::get('/download/{file}', [orderController::class, 'fileDownload'])->name('admin.downloadFile');

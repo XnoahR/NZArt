@@ -35,16 +35,51 @@ class paymentController extends Controller
 
     public function payment($id)
     {
-        $order = Order::find($id);
+        $payment = Payment::find($id);
+        $order = Order::find($payment->order_id);
         if ($order->user_id != auth()->user()->id) {
-            return redirect()->route('admin.payment')->with('error', 'You are not authorized to access this page');
+            return redirect()->route('home')->with('error', 'You are not authorized to access this page');
         }
         $title = 'Bayar Pesanan';
         $navTitle = 'Catalog';
         return view('payment', [
             'title' => $title,
             'navTitle' => $navTitle,
-            'order' => $order
+            'order' => $order,
+            'payment' => $payment
         ]);
+    }
+
+    public function pay(Request $request, $id)
+    {
+        $validate = $request->validate([
+            'proof' => 'required',
+            'payment_method' => 'required',
+        ],
+        [
+            'proof.required' => 'Bukti pembayaran harus diisi',
+            'payment_method.required' => 'Metode pembayaran harus diisi',
+        ]);
+        $payment = Payment::find($id);
+        $order = Order::find($payment->order_id);
+        if ($order->user_id != auth()->user()->id) {
+            return redirect()->route('home')->with('error', 'You are not authorized to access this page');
+        }
+        if ($request->hasFile('proof')) {
+            $file = $request->file('proof');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move('files', $filename);
+            $validate['proof'] = $filename;
+        } else {
+            return redirect()->back()->with('error', 'File not found');
+        }
+        $payment->payment_method = $validate['payment_method'];
+        $payment->proof = $validate['proof'];
+        $payment->paid_at = now();
+        $payment->status = 'paid';
+        $payment->save();
+        
+
+        return response()->json(['message' => 'Payment success']);
     }
 }
