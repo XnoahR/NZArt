@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 
 class userController extends Controller
@@ -56,4 +57,21 @@ class userController extends Controller
             'order' => $order
         ]);
     }
+
+    public function payment() {
+        $user = auth()->user();
+        $orders = Order::where('user_id', $user->id)->get();
+        $orderIds = $orders->pluck('id')->toArray(); // Convert collection to array
+        $payments = Payment::whereIn('order_id', $orderIds)->paginate(10); // Use whereIn for multiple values
+        $title = 'Payment History';
+        $navTitle = 'Account';
+        
+    
+        return view('account.payment', [
+            'title' => $title,
+            'navTitle' => $navTitle,
+            'payments' => $payments // Corrected variable name to 'payments'
+        ]);
+    }
+    
 }

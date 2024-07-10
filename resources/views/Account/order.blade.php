@@ -2,7 +2,7 @@
     @section('content')
         <section
             class="bg-white dark:bg-gray-900 h-screen flex flex-col place-item items-center justify-normal mt-16 space-y-5 border border-red-500">
-            <div class="w-3/4 flex flex-col justify-items-center">
+            <div class="w-3/4 flex flex-col justify-items-center mt-16">
                 @foreach ($orders as $order)
                     <a href="{{ route('account.orderDetail', $order->id) }}"
                         class="relative inline-flex items-center text-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">

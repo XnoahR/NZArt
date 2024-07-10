@@ -34,7 +34,7 @@
             </dl>
         </div>
 
-        <div class=" w-full sm:w-1/2 sm:px-6  py-6 ">
+        <div class=" w-full sm:w-1/2 sm:px-6  py-6 border shadow-lg dark:shadow-blue-500 dark:border-blue-400 rounded-md">
             <form action="{{ route('order.pay', $payment->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -79,13 +79,19 @@
                 <h2 class="ml-1 mb-1 text-lg font-semibold text-gray-900 dark:text-white">Status:</h2>
                 <ul class="max-w-md space-y-1 mb-6  list-none list-inside  text-gray-900 dark:text-white">
                     <li class="ml-3 text-2xl uppercase font-semibold text-blue-500">
-                        {{ $order->status }}
+                        {{ $payment->status }}
                 </ul>
+                
 
-                <button type="submit" class=" bg-blue-500 p-3 rounded-md text-white hover:bg-blue-700 "
-                    @if ($order->status == 'paid') disabled @endif> Bayar Sekarang
+                @if ($payment->status == 'paid') 
+                    <span
+                    class="border border-red-600 p-3 text-red-400 font-semibold text-lg rounded-md">
+                    Sudah Dibayar</span>
+                @else
+                <button type="submit" class=" bg-blue-500 p-3 rounded-md text-white hover:bg-blue-700 ">
+                    Bayar Sekarang
                 </button>
-
+                @endif
 
 
                 {{-- Return Button --}}
