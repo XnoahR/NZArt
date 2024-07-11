@@ -80,6 +80,6 @@ class paymentController extends Controller
         $payment->save();
         
 
-        return response()->json(['message' => 'Payment success']);
+        return redirect()->back()->with('success', 'Payment success');
     }
 }

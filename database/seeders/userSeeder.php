@@ -24,7 +24,7 @@ class userSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        User::factory(25)->create();
+        
 
         //Admin
         User::create([
@@ -32,7 +32,7 @@ class userSeeder extends Seeder
             'email' => 'admin@nzart.com',
             'phone' => '081234567890',
             'address' => 'Jl. Raya No 1',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('admin123'),
             'role' => 'admin',
         ]);
     }

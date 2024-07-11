@@ -39,7 +39,6 @@
                         value="{{ $order->size }}" disabled />
                 </div>
 
-
                 {{-- File Design --}}
                 <div class="mb-5">
                     <label for="design"
