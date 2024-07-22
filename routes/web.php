@@ -91,7 +91,7 @@ Route::get('/help', function () {
             'navTitle' => $navTitle
         ]
     );
-});
+})->name('help');
 
 Route::group(['prefix' => 'account', 'middleware' => 'needLogin'], function () {
     Route::get('/', [userController::class, 'index'])->name('account');
